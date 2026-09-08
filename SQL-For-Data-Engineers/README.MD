@@ -1,26 +1,8 @@
-<div align="center">
-
-<img src="https://githubusercontent.com Image Aug 30, 2026, 01_11_05 PM.png" width="100%" alt="Jhulan Dey — SQL for Data Engineers"/>
-
-<br/>
 
 # 🧮 SQL for Data Engineers
 
 ### Building the Analytical & Transformational Core of the Data Engineering Stack
 
-<br/>
-
-![SQL](https://shields.io)
-![Status](https://shields.io🟢_Active_Core-4479A1?style=flat-square)
-![Environment](https://shields.io)
-
-<br/><br/>
-
-<a href="https://github.com">Main Journey Repo</a> •
-<a href="https://linkedin.com">LinkedIn</a> •
-<a href="https://netlify.app">Portfolio</a>
-
-</div>
 
 ---
 
