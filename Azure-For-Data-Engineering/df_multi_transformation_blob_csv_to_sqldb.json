@@ -1,0 +1,143 @@
+{
+    "name": "df_multi_transformation_blob_csv_to_sqldb",
+    "properties": {
+        "type": "MappingDataFlow",
+        "typeProperties": {
+            "sources": [
+                {
+                    "dataset": {
+                        "referenceName": "ds_blob_csv_users",
+                        "type": "DatasetReference"
+                    },
+                    "name": "sourceUsers"
+                },
+                {
+                    "dataset": {
+                        "referenceName": "ds_blob_csv_transactions",
+                        "type": "DatasetReference"
+                    },
+                    "name": "sourceTransactions"
+                }
+            ],
+            "sinks": [
+                {
+                    "dataset": {
+                        "referenceName": "ds_sqldb_sink_df_transformation",
+                        "type": "DatasetReference"
+                    },
+                    "name": "sink1"
+                }
+            ],
+            "transformations": [
+                {
+                    "name": "cast1"
+                },
+                {
+                    "name": "filter1"
+                },
+                {
+                    "name": "split1"
+                },
+                {
+                    "name": "alterRow1"
+                },
+                {
+                    "name": "pivot1"
+                },
+                {
+                    "name": "unpivot1"
+                },
+                {
+                    "name": "join1"
+                },
+                {
+                    "name": "union1"
+                },
+                {
+                    "name": "select1"
+                }
+            ],
+            "scriptLines": [
+                "source(output(",
+                "          UserID as integer,",
+                "          UserName as string,",
+                "          SignupCountry as string,",
+                "          Age as integer",
+                "     ),",
+                "     allowSchemaDrift: true,",
+                "     validateSchema: false,",
+                "     ignoreNoFilesFound: false) ~> sourceUsers",
+                "source(output(",
+                "          TransactionID as string,",
+                "          UserID as short,",
+                "          ProductCategory as string,",
+                "          Amount as double,",
+                "          TransactionDate as date",
+                "     ),",
+                "     allowSchemaDrift: true,",
+                "     validateSchema: false,",
+                "     ignoreNoFilesFound: false) ~> sourceTransactions",
+                "sourceUsers cast(output(",
+                "          UserID as integer",
+                "     ),",
+                "     errors: true) ~> cast1",
+                "cast1 filter(!isNull(UserID) && Age >= 18) ~> filter1",
+                "filter1 split(Age >= 18 && Age < 40,",
+                "     disjoint: false) ~> split1@(Adults, Seniors)",
+                "split1@Adults alterRow(insertIf(SignupCountry == 'USA'),",
+                "     updateIf(SignupCountry != 'USA'),",
+                "     deleteIf(Age > 38)) ~> alterRow1",
+                "sourceTransactions pivot(groupBy(UserID),",
+                "     pivotBy(ProductCategory, ['Electronics', 'Books', 'Fashion']),",
+                "     {} = sum(toDouble(Amount)),",
+                "     columnNaming: '$V$N_Total',",
+                "     lateral: true) ~> pivot1",
+                "pivot1 unpivot(output(",
+                "          Category as string,",
+                "          Spending as double",
+                "     ),",
+                "     ungroupBy(UserID),",
+                "     pivotValues: ['Electronics', 'Books', 'Fashion'],",
+                "     lateral: false,",
+                "     ignoreNullPivots: true) ~> unpivot1",
+                "unpivot1, alterRow1 join(unpivot1@UserID == split1@Adults@UserID,",
+                "     joinType:'inner',",
+                "     matchType:'exact',",
+                "     ignoreSpaces: false,",
+                "     broadcast: 'auto')~> join1",
+                "select1, split1@Seniors union(byName: true)~> union1",
+                "join1 select(mapColumn(",
+                "          UserID = unpivot1@UserID,",
+                "          Category,",
+                "          Spending,",
+                "          UserName,",
+                "          SignupCountry,",
+                "          Age",
+                "     ),",
+                "     skipDuplicateMapInputs: true,",
+                "     skipDuplicateMapOutputs: true) ~> select1",
+                "union1 sink(allowSchemaDrift: true,",
+                "     validateSchema: false,",
+                "     input(",
+                "          UserID as integer,",
+                "          UserName as string,",
+                "          SignupCountry as string,",
+                "          Age as integer,",
+                "          Category as string,",
+                "          Spending as decimal(18,2),",
+                "          InsertedDate as timestamp",
+                "     ),",
+                "     deletable:false,",
+                "     insertable:true,",
+                "     updateable:false,",
+                "     upsertable:false,",
+                "     format: 'table',",
+                "     preSQLs:['TRUNCATE TABLE dbo.dataflow_UserCategorySpending;'],",
+                "     skipDuplicateMapInputs: true,",
+                "     skipDuplicateMapOutputs: true,",
+                "     saveOrder: 1,",
+                "     errorHandlingOption: 'stopOnFirstError') ~> sink1"
+            ]
+        }
+    }
+}
