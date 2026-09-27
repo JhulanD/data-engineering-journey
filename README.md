@@ -353,17 +353,18 @@ Date Logic
 
 ---
 
-# 📂 Repository Layout
+## 📂 Repository Layout
 
 ```text
 .
-├── 📂 azure/              # Storage configurations & ADF pipeline artifacts
-├── 📂 databricks/         # Notebooks, PySpark ETL & Delta Lake
-├── 📂 dbt/                # Transformation models, tests & snapshots
-├── 📂 python/             # Data processing & pipeline logic
-├── 📂 snowflake/          # DDL, staging scripts & procedures
-├── 📂 sql/                # Queries, CTEs & optimization exercises
-└── 📂 projects/           # End-to-end data engineering projects
+├── 📂 Azure-For-Data-Engineering/
+│   ├── 📂 AzureDataFactory/
+│   │   └── 📂 paypal-transformation-dataflow/   # ⚡ Spark Mapping Data Flow project
+│   └── 📂 storage-and-ingestion/                 # 🗄️ Multi-source ingestion & SHIR setups
+├── 📂 databricks/                                # 🔥 PySpark notebooks & Lakehouse code
+├── 📂 snowflake/                                 # ❄️ Stage definitions, Snowpipe & DDLs
+├── 📂 sql/                                       # 💾 T-SQL procedures, CTEs & window logic
+└── 📂 python/                                    # 🐍 ETL automation & data utilities
 ```
 
 ---
@@ -373,52 +374,14 @@ Date Logic
 This repository follows a simple engineering loop:
 
 ```text
-LEARN → PRACTICE → BUILD → DEBUG → EXPLAIN → DOCUMENT → SHOWCASE
+LEARN ──► BUILD ──► DEBUG ──► EXPLAIN ──► DOCUMENT ──► SHOWCASE
 ```
 
 The objective is **understanding and evidence**, not simply completing courses.
 
 ---
 
-# 🎯 End Goal
-
-Build a credible, interview-ready profile for **Azure Data Engineering with strong Snowflake + Databricks capabilities**.
-
-The final project should demonstrate:
-
-```text
-Ingestion
-   ↓
-Orchestration
-   ↓
-Transformation
-   ↓
-Data Quality
-   ↓
-Medallion Architecture
-   ↓
-Dimensional Modelling
-   ↓
-Incremental Processing
-   ↓
-SCD Type 2
-   ↓
-Snowflake
-   ↓
-Analytics
-```
-
-And, most importantly:
-
-> **Be able to explain every major engineering decision made along the way.**
-
----
-
 <div align="center">
-
-## BUILD → DEBUG → EXPLAIN → DOCUMENT → SHOWCASE → APPLY
-
-<br/>
 
 **Azure Data Engineering · Snowflake · Databricks**
 
