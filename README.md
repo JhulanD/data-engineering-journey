@@ -140,11 +140,13 @@ Current Azure learning is focused on understanding **how data actually moves thr
 - Execution troubleshooting
 
 ### Recent Pipeline Exercises
+* [PayPal Paid Transactions ETL (ADF Data Flow)](Azure-For-Data-Engineering/AzureDataFactory/paypal-transformation-dataflow/) — Mapping Data Flow executing multi-CSV joins, payment status predicates (`Status == 'Paid'`), and loading curated records into Azure SQL DB.
 
 ```text
 SQL Server       ───────► ADLS Gen2
 Blob Storage     ───────► ADLS Gen2
 ADLS Gen2        ───────► ADLS Gen2
+
 ```
 
 Execution analysis includes:
