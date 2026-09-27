@@ -1,27 +1,24 @@
 <div align="center">
 
-
 <img src="https://raw.githubusercontent.com/JhulanD/JhulanD/main/public/ChatGPT Image Aug 30, 2026, 01_11_05 PM.png" width="100%" alt="Jhulan Dey — Data Engineering Journey"/>
 
 <br/>
 
 # ⚡ Data Engineering Journey
 
-### Transitioning 20+ years of Operations Leadership into Modern Cloud Data Platforms
+### Transitioning 20+ Years of Operations Leadership into Modern Cloud Data Platforms
 
 <br/>
 
 ![Azure](https://img.shields.io/badge/Azure-Data%20Engineering-0078D4?style=flat-square&logo=microsoftazure&logoColor=white)
 ![Databricks](https://img.shields.io/badge/Databricks-Learning-FF3621?style=flat-square&logo=databricks&logoColor=white)
 ![Snowflake](https://img.shields.io/badge/Snowflake-Target-29B5E8?style=flat-square&logo=snowflake&logoColor=white)
-![Python](https://img.shields.io/badge/Python-Learning-3776AB?style=flat-square&logo=python&logoColor=white)
+![Python](https://img.shields.io/badge/Python-Active-3776AB?style=flat-square&logo=python&logoColor=white)
 ![SQL](https://img.shields.io/badge/SQL-Foundation-4479A1?style=flat-square&logo=mysql&logoColor=white)
 
 <br/><br/>
 
-<a href="https://www.linkedin.com/in/jhulandey">LinkedIn</a> •
-<a href="https://jd-portfolio-demo.netlify.app">Portfolio</a> •
-<a href="mailto:jhulandey.now@outlook.in">Email</a>
+[LinkedIn](https://www.linkedin.com/in/jhulandey) • [Portfolio](https://jd-portfolio-demo.netlify.app) • [Email](mailto:jhulandey.now@outlook.in)
 
 </div>
 
@@ -29,132 +26,128 @@
 
 ## 📌 Executive Summary
 
-> **Using existing systems-thinking to build reliable cloud data pipelines, document engineering decisions, and develop production-oriented ETL/ELT workflows.**
+> **Applying systems-thinking, operational quality control, and pipeline SLA rigor to build production-grade cloud data architectures.**
 
-I am transitioning from **20+ years of media production and operations leadership** into **Data Engineering**.
+I am pivoting from **20+ years of high-volume media production and operations leadership** into **Cloud Data Engineering**.
 
-My foundation in **process design, workflow automation, operational quality, documentation, reporting, and cross-functional execution** provides the foundation for how I approach modern data engineering.
-
-My career transition follows a deliberate path:
+My background managing multi-stage technical workflows, broadcast SLAs, asset governance, and process automation directly drives my approach to data pipelines: **build with resilience, optimize compute costs, handle schema drift, and enforce idempotent executions.**
 
 ```text
-Operations & Workflows → Automation → SQL & Data → ETL / ELT
-→ Azure Data Engineering → Spark / Databricks → Snowflake
-```
-
-The goal is not simply to collect technologies.
-
-The goal is to **build → debug → explain → document → showcase**.
-
----
-
-# 🎯 Tech Stack
-
-| Layer | Technologies & Concepts | Status |
-|---|---|---|
-| **Cloud** | Microsoft Azure | 🟡 In Progress |
-| **Storage** | Azure Blob Storage, ADLS Gen2 | 🟡 In Progress |
-| **Orchestration** | Azure Data Factory | 🟡 In Progress |
-| **Processing** | Python, Apache Spark, PySpark | 🟡 In Progress |
-| **Data Platform** | Azure Databricks, Delta Lake | 🟡 In Progress |
-| **Data Warehouse** | Snowflake | ⚪ Planned |
-| **Transformation** | dbt | ⚪ Planned |
-| **Database / SQL** | SQL, MySQL, SQL Server | 🟢 Foundation |
-| **Data Modelling** | Star Schema, Snowflake Schema, SCD1/SCD2 | 🟡 Learning |
-| **Analytics** | Power BI, Tableau | 🟢 Active / Certified |
-| **Automation** | Make.com, n8n, REST APIs | 🟢 Existing Experience |
-| **Version Control** | Git / GitHub | 🟡 In Progress |
-
----
-
-# 🏗️ Target Data Engineering Architecture
-
-```text
-                         ┌───────────────────────┐
-                         │      DATA SOURCES     │
-                         │ SQL Server / APIs     │
-                         │ CSV / JSON / Files    │
-                         └───────────┬───────────┘
-                                     │
-                                     ▼
-                         ┌───────────────────────┐
-                         │      ADLS Gen2        │
-                         │      RAW STORAGE      │
-                         └───────────┬───────────┘
-                                     │
-                                     ▼
-                         ┌───────────────────────┐
-                         │   AZURE DATA FACTORY  │
-                         │ Ingestion / Scheduling│
-                         │ Orchestration / Monitor│
-                         └───────────┬───────────┘
-                                     │
-                                     ▼
-                     ┌───────────────────────────────┐
-                     │       AZURE DATABRICKS        │
-                     │      Apache Spark / PySpark   │
-                     │                               │
-                     │ BRONZE → SILVER → GOLD       │
-                     └──────────────┬────────────────┘
-                                    │
-                                    ▼
-                         ┌───────────────────────┐
-                         │       SNOWFLAKE       │
-                         │ Warehouse / ELT / SQL │
-                         └───────────┬───────────┘
-                                     │
-                                     ▼
-                         ┌───────────────────────┐
-                         │      dbt / BI / SQL   │
-                         │ Transformation & BI   │
-                         └───────────────────────┘
+Operations & Workflows ──► Automation ──► SQL & Relational Models ──► Cloud ETL/ELT ──► Azure • Spark • Snowflake
 ```
 
 ---
 
-# ☁️ Azure — Hands-on Progress
+## 🛠 Tech Stack & Technical Competencies
 
-Current Azure learning is focused on understanding **how data actually moves through cloud services**, rather than learning services in isolation.
+| Icon | Layer | Technologies & Concepts | Status |
+| :---: | --- | --- | --- |
+| ☁️ | **🗄️ Cloud Storage** | [ADLS](https://img.shields.io/badge/ADLS_Gen2-HNS-0078D4?logo=microsoftazure) Blob Storage, ADLS Gen2 | 🟢 Production Hands-on |
+| 🔄 | **⚙️ Orchestration** | [ADF](https://img.shields.io/badge/ADF-Orchestration-0078D4?logo=microsoftazure) ADF, Self-Hosted IR (SHIR), Parameters, Expressions | 🟢 Production Hands-on |
+| ⚡ | **🔥 Distributed Compute** | [Spark](https://img.shields.io/badge/Spark-Managed-E25A1C?logo=apachespark) ADF Mapping Data Flows, Apache Spark, PySpark | 🟡 Active Implementation |
+| 🏗️ | **🧱 Lakehouse Architecture** | [Databricks](https://img.shields.io/badge/Databricks-Lakehouse-FF3621?logo=databricks) Delta Lake (ACID, Bronze/Silver/Gold) | 🟡 Active Implementation |
+| ❄️ | **🏦 Data Warehousing** | [Snowflake](https://img.shields.io/badge/Snowflake-Warehouse-29B5E8?logo=snowflake) Stages, Snowpipe, Streams, Tasks, Time Travel, Zero-Copy Clone | 🟡 In Progress |
+| 🔧 | **📐 Transformation & Modeling** | [dbt](https://img.shields.io/badge/dbt-Modeling-FF694B?logo=dbt) Dimensional Modeling (Star/Snowflake, SCD Type 1 & 2) | 🟡 In Progress |
+| 💾 | **🐍 Database & Scripting** | [Python](https://img.shields.io/badge/Python-Scripting-3776AB?logo=python) [SQL](https://img.shields.io/badge/SQL-Advanced-4479A1?logo=mysql) Advanced SQL (Window, CTEs, MERGE), T-SQL, Python | 🟢 Foundation Verified |
+| 📊 | **📈 BI & Automation** | [PowerBI](https://img.shields.io/badge/Power_BI-BI-F2C811?logo=powerbi) Power BI, Tableau, REST APIs, n8n, Make.com | 🟢 Certified / Experienced |
+| 🔐 | **🚀 Governance & DevOps** | [Git](https://img.shields.io/badge/Git-GitHub-181717?logo=github) Git/GitHub, Microsoft CAF Standards | 🟢 Active |
 
-### Azure Storage
+---
 
-- Azure Blob Storage
-- Azure Data Lake Storage Gen2
-- Source / sink configuration
-- File-based ingestion
-- Storage-to-storage movement
-- Execution metrics
+## 🏗️ Production Target Architecture
 
-### Azure Data Factory
+```text
+                         ┌───────────────────────────┐
+                         │  📥 DATA SOURCES          │
+                         │  On-Prem SQL / Web / APIs │
+                         │  CSV / Parquet / JSON     │
+                         └─────────────┬─────────────┘
+                                       │
+                                       ▼
+                         ┌───────────────────────────┐
+                         │  🔄 AZURE DATA FACTORY    │
+                         │  Ingestion (SHIR / Cloud) │
+                         │  Metadata Dynamic Routing │
+                         └─────────────┬─────────────┘
+                                       │
+                                       ▼
+                         ┌───────────────────────────┐
+                         │  🗄️ ADLS Gen2             │
+                         │  Landing / Raw Lake Zones │
+                         └─────────────┬─────────────┘
+                                       │
+                                       ▼
+                       ┌───────────────────────────────┐
+                       │  ⚡ AZURE DATABRICKS          │
+                       │  Apache Spark / PySpark ETL   │
+                       ├───────────────────────────────┤
+                       │  BRONZE  ──►  SILVER  ──► GOLD│
+                       │   Raw        Cleaned     SCD2 │
+                       └───────────────┬───────────────┘
+                                       │
+                                       ▼
+                         ┌───────────────────────────┐
+                         │  ❄️ SNOWFLAKE             │
+                         │  Cloud Warehouse / ELT    │
+                         │  Streams & Tasks / Snowpipe│
+                         └─────────────┬─────────────┘
+                                       │
+                                       ▼
+                         ┌───────────────────────────┐
+                         │  📊 dbt / POWER BI        │
+                         │  Business Curated Models  │
+                         └───────────────────────────┘
+```
 
-- Pipelines
-- Activities
-- Datasets
-- Linked Services
-- Integration Runtime
+---
+
+## Azure Data Factory -> Key Hands-On Projects
+
+Built practical pipelines using:
+
 - Copy Activity
-- Parameters
-- Variables
-- Expressions
-- Monitoring
-- Execution troubleshooting
+- Linked Services
+- Datasets
+- Integration Runtime
+- Source / sink configuration
+- Execution monitoring
 
-### Recent Pipeline Exercises
-* [PayPal Paid Transactions ETL (ADF Data Flow)](Azure-For-Data-Engineering/AzureDataFactory/paypal-transformation-dataflow/) — Mapping Data Flow executing multi-CSV joins, payment status predicates (`Status == 'Paid'`), and loading curated records into Azure SQL DB.
+
+
+### 1️⃣ 💳 PayPal Transaction Transformation Engine — `ADF Data Flow`
+**Stack:** `Azure Data Factory` `ADLS Gen2` `Azure IR 8-Core Spark` `Azure SQL DB`
+> **[PayPal Paid Transactions ETL (ADF Data Flow)](Azure-For-Data-Engineering/AzureDataFactory/paypal-transformation-dataflow/)**
+
+> **Implementation:** Mapping Data Flow executing multi-CSV joins, payment status predicates (`Status == 'Paid'`), and loading curated records into Azure SQL DB.
+
+> **Engineering Focus:** Avoided relational database locking by offloading joins and filtering upstream to Spark in-memory execution.
+
+### 2️⃣ 🧩 Dynamic Metadata-Driven Ingestion & Routing Framework
+**Stack:** `Azure Data Factory` `ADLS Gen2` `ForEach` `Get Metadata` `Dynamic Content`
+
+> **Implementation:** Parameterized batch pipeline inspecting directory contents dynamically via Child Items, running parallel ingestion without payload reads, and directing target entities while ignoring corrupt drops.
+
+> **Engineering Focus:** Decoupled pipeline orchestration from incoming file volume and naming changes, eliminating static hardcoding and UserErrorFileNotFound exceptions.
+
+### 3️⃣ 🔗 Hybrid On-Premises Ingestion via Self-Hosted IR (SHIR)
+**Stack:** `SQL Server 2025` `Self-Hosted IR` `ADLS Gen2` `Azure SQL DB`
+
+> **Implementation:** Deployed a local Self-Hosted Integration Runtime to bridge network boundaries between on-premises SQL instances and cloud storage, standardizing linked services and datasets using Microsoft Cloud Adoption Framework (CAF) naming standards.
+
+> **Engineering Focus:** Hybrid secure connectivity, firewall/port troubleshooting, and automated archival patterns post-transfer.
+
+
+### Azure Storage & ADLS Gen2
+
+Configured source and sink flows, storage-to-storage movement and file-based ingestion.
+
+
+### Data Movement
 
 ```text
-SQL Server       ───────► ADLS Gen2
-Blob Storage     ───────► ADLS Gen2
-ADLS Gen2        ───────► ADLS Gen2
-
-```
-
-Execution analysis includes:
-
-```text
-Data Read · Data Written · Files Read / Written
-Throughput · Copy Duration · DIUs
-Parallel Copies · Queue Time · Transfer Time
+SQL Server ─────────► ADLS Gen2
+Blob Storage ───────► ADLS Gen2
+ADLS Gen2 ──────────► ADLS Gen2
 ```
 
 ---
@@ -348,36 +341,6 @@ Date Logic
 </tr>
 </table>
 
----
-
-# 🚀 Key Hands-on Progress
-
-### Azure Storage & ADLS Gen2
-
-Configured source and sink flows, storage-to-storage movement and file-based ingestion.
-
-### Azure Data Factory
-
-Built practical pipelines using:
-
-- Copy Activity
-- Linked Services
-- Datasets
-- Integration Runtime
-- Source / sink configuration
-- Execution monitoring
-
-### Data Movement
-
-```text
-SQL Server ─────────► ADLS Gen2
-Blob Storage ───────► ADLS Gen2
-ADLS Gen2 ──────────► ADLS Gen2
-```
-
-The exercises include reviewing real execution metrics such as data read/written, files processed, throughput, DIUs, parallel copies, queue time and transfer duration.
-
----
 
 # 📈 Roadmap & Execution Milestones
 
