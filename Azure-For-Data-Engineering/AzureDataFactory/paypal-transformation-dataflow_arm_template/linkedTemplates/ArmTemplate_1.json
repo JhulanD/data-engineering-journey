@@ -1,0 +1,330 @@
+{
+    "$schema": "http://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
+    "contentVersion": "1.0.0.0",
+    "parameters": {
+        "factoryName": {
+            "type": "string",
+            "metadata": "Data Factory name",
+            "defaultValue": "adf-azde-lab-ci-001"
+        }
+    },
+    "variables": {
+        "factoryId": "[concat('Microsoft.DataFactory/factories/', parameters('factoryName'))]"
+    },
+    "resources": [
+        {
+            "name": "[concat(parameters('factoryName'), '/pl_customer_scd2_load_dev')]",
+            "type": "Microsoft.DataFactory/factories/pipelines",
+            "apiVersion": "2018-06-01",
+            "properties": {
+                "activities": [
+                    {
+                        "name": "act_metadata_customer",
+                        "type": "GetMetadata",
+                        "dependsOn": [],
+                        "policy": {
+                            "timeout": "0.12:00:00",
+                            "retry": 0,
+                            "retryIntervalInSeconds": 30,
+                            "secureOutput": false,
+                            "secureInput": false
+                        },
+                        "userProperties": [],
+                        "typeProperties": {
+                            "dataset": {
+                                "referenceName": "ds_adls_blob_customer",
+                                "type": "DatasetReference",
+                                "parameters": {}
+                            },
+                            "fieldList": [
+                                "childItems"
+                            ],
+                            "storeSettings": {
+                                "type": "AzureBlobStorageReadSettings",
+                                "recursive": true,
+                                "enablePartitionDiscovery": false
+                            },
+                            "formatSettings": {
+                                "type": "DelimitedTextReadSettings"
+                            }
+                        }
+                    },
+                    {
+                        "name": "act_foreach_customer_files",
+                        "type": "ForEach",
+                        "dependsOn": [
+                            {
+                                "activity": "act_metadata_customer",
+                                "dependencyConditions": [
+                                    "Succeeded"
+                                ]
+                            }
+                        ],
+                        "userProperties": [],
+                        "typeProperties": {
+                            "items": {
+                                "value": "@activity('act_metadata_customer').output.childItems",
+                                "type": "Expression"
+                            },
+                            "activities": [
+                                {
+                                    "name": "copy_customer_to_stg",
+                                    "type": "Copy",
+                                    "dependsOn": [],
+                                    "policy": {
+                                        "timeout": "0.12:00:00",
+                                        "retry": 0,
+                                        "retryIntervalInSeconds": 30,
+                                        "secureOutput": false,
+                                        "secureInput": false
+                                    },
+                                    "userProperties": [],
+                                    "typeProperties": {
+                                        "source": {
+                                            "type": "DelimitedTextSource",
+                                            "storeSettings": {
+                                                "type": "AzureBlobStorageReadSettings",
+                                                "recursive": true,
+                                                "wildcardFileName": {
+                                                    "value": "@item().name",
+                                                    "type": "Expression"
+                                                },
+                                                "enablePartitionDiscovery": false
+                                            },
+                                            "formatSettings": {
+                                                "type": "DelimitedTextReadSettings"
+                                            }
+                                        },
+                                        "sink": {
+                                            "type": "AzureSqlSink",
+                                            "writeBehavior": "insert",
+                                            "sqlWriterUseTableLock": false,
+                                            "disableMetricsCollection": false
+                                        },
+                                        "enableStaging": false,
+                                        "translator": {
+                                            "type": "TabularTranslator",
+                                            "typeConversion": true,
+                                            "typeConversionSettings": {
+                                                "allowDataTruncation": true,
+                                                "treatBooleanAsNumber": false
+                                            }
+                                        }
+                                    },
+                                    "inputs": [
+                                        {
+                                            "referenceName": "ds_adls_blob_customer",
+                                            "type": "DatasetReference",
+                                            "parameters": {}
+                                        }
+                                    ],
+                                    "outputs": [
+                                        {
+                                            "referenceName": "ds_sqldb_stg_customer",
+                                            "type": "DatasetReference",
+                                            "parameters": {
+                                                "TableName": {
+                                                    "value": "@pipeline().parameters.TableName\r\n",
+                                                    "type": "Expression"
+                                                }
+                                            }
+                                        }
+                                    ]
+                                }
+                            ]
+                        }
+                    },
+                    {
+                        "name": "act_sp_upsert_scd2_customer",
+                        "type": "SqlServerStoredProcedure",
+                        "dependsOn": [
+                            {
+                                "activity": "act_foreach_customer_files",
+                                "dependencyConditions": [
+                                    "Succeeded"
+                                ]
+                            }
+                        ],
+                        "policy": {
+                            "timeout": "0.12:00:00",
+                            "retry": 0,
+                            "retryIntervalInSeconds": 30,
+                            "secureOutput": false,
+                            "secureInput": false
+                        },
+                        "userProperties": [],
+                        "typeProperties": {
+                            "storedProcedureName": "[[dbo].[sp_upsert_scd2_customer]"
+                        },
+                        "linkedServiceName": {
+                            "referenceName": "LS_AzureSQL_DB",
+                            "type": "LinkedServiceReference"
+                        }
+                    }
+                ],
+                "policy": {
+                    "elapsedTimeMetric": {}
+                },
+                "parameters": {
+                    "TableName": {
+                        "type": "string",
+                        "defaultValue": "stg_customer"
+                    }
+                },
+                "variables": {
+                    "varFileName": {
+                        "type": "String"
+                    }
+                },
+                "annotations": [],
+                "lastPublishTime": "2026-09-24T06:31:07Z"
+            },
+            "dependsOn": []
+        },
+        {
+            "name": "[concat(parameters('factoryName'), '/PaypalTransformation')]",
+            "type": "Microsoft.DataFactory/factories/dataflows",
+            "apiVersion": "2018-06-01",
+            "properties": {
+                "type": "MappingDataFlow",
+                "typeProperties": {
+                    "sources": [
+                        {
+                            "dataset": {
+                                "referenceName": "DS_ADLSBlob_Source_PaypalPayments",
+                                "type": "DatasetReference"
+                            },
+                            "name": "DFPayPalTransformations"
+                        },
+                        {
+                            "dataset": {
+                                "referenceName": "DS_ADLSBlob_Source_Paypal_Products",
+                                "type": "DatasetReference"
+                            },
+                            "name": "PayPalProducts"
+                        }
+                    ],
+                    "sinks": [
+                        {
+                            "linkedService": {
+                                "referenceName": "LS_AzureSQL_DB",
+                                "type": "LinkedServiceReference"
+                            },
+                            "name": "PaypalPaidTransferToDB"
+                        }
+                    ],
+                    "transformations": [
+                        {
+                            "name": "PayPalJoin"
+                        },
+                        {
+                            "name": "StatusFilter"
+                        }
+                    ],
+                    "scriptLines": [
+                        "source(output(",
+                        "          id as string,",
+                        "          {Created date (UTC)} as string,",
+                        "          Amount as string,",
+                        "          {Amount Refunded} as string,",
+                        "          Currency as string,",
+                        "          Captured as string,",
+                        "          {Converted Amount} as string,",
+                        "          {Converted Amount Refunded} as string,",
+                        "          {Converted Currency} as string,",
+                        "          Description as string,",
+                        "          Fee as string,",
+                        "          Status as string,",
+                        "          {Seller Message} as string,",
+                        "          {Card ID} as string,",
+                        "          {Customer ID} as string,",
+                        "          {Invoice ID} as string,",
+                        "          Transfer as string,",
+                        "          {price_id (metadata)} as string,",
+                        "          {product_id (metadata)} as string",
+                        "     ),",
+                        "     allowSchemaDrift: true,",
+                        "     validateSchema: false,",
+                        "     ignoreNoFilesFound: false) ~> DFPayPalTransformations",
+                        "source(output(",
+                        "          id as string,",
+                        "          Name as string,",
+                        "          {Date (UTC)} as string,",
+                        "          {Tax Code} as string",
+                        "     ),",
+                        "     allowSchemaDrift: true,",
+                        "     validateSchema: false,",
+                        "     ignoreNoFilesFound: false) ~> PayPalProducts",
+                        "DFPayPalTransformations, PayPalProducts join({product_id (metadata)} == PayPalProducts@id,",
+                        "     joinType:'left',",
+                        "     matchType:'exact',",
+                        "     ignoreSpaces: false,",
+                        "     broadcast: 'auto')~> PayPalJoin",
+                        "PayPalJoin filter(equals(Status, 'Paid')) ~> StatusFilter",
+                        "StatusFilter sink(allowSchemaDrift: true,",
+                        "     validateSchema: false,",
+                        "     format: 'table',",
+                        "     store: 'sqlserver',",
+                        "     schemaName: 'dbo',",
+                        "     tableName: 'PaypalPaidData',",
+                        "     insertable: true,",
+                        "     updateable: false,",
+                        "     deletable: false,",
+                        "     upsertable: false,",
+                        "     skipDuplicateMapInputs: true,",
+                        "     skipDuplicateMapOutputs: true,",
+                        "     errorHandlingOption: 'stopOnFirstError') ~> PaypalPaidTransferToDB"
+                    ]
+                }
+            },
+            "dependsOn": []
+        },
+        {
+            "name": "[concat(parameters('factoryName'), '/PL_PayapalTransformation_To_SQLDB')]",
+            "type": "Microsoft.DataFactory/factories/pipelines",
+            "apiVersion": "2018-06-01",
+            "properties": {
+                "activities": [
+                    {
+                        "name": "PaypalTransformation",
+                        "type": "ExecuteDataFlow",
+                        "dependsOn": [],
+                        "policy": {
+                            "timeout": "0.12:00:00",
+                            "retry": 0,
+                            "retryIntervalInSeconds": 30,
+                            "secureOutput": false,
+                            "secureInput": false
+                        },
+                        "userProperties": [],
+                        "typeProperties": {
+                            "dataflow": {
+                                "referenceName": "PaypalTransformation",
+                                "type": "DataFlowReference",
+                                "parameters": {},
+                                "datasetParameters": {
+                                    "DFPayPalTransformations": {},
+                                    "PayPalProducts": {},
+                                    "PaypalPaidTransferToDB": {}
+                                }
+                            },
+                            "staging": {},
+                            "compute": {
+                                "coreCount": 8,
+                                "computeType": "General"
+                            },
+                            "traceLevel": "Fine"
+                        }
+                    }
+                ],
+                "policy": {
+                    "elapsedTimeMetric": {}
+                },
+                "annotations": []
+            },
+            "dependsOn": [
+                "[concat(variables('factoryId'), '/dataflows/PaypalTransformation')]"
+            ]
+        }
+    ]
+}

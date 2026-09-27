@@ -1,0 +1,39 @@
+{
+    "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentParameters.json#",
+    "contentVersion": "1.0.0.0",
+    "parameters": {
+        "factoryName": {
+            "value": "adf-azde-lab-ci-001"
+        },
+        "AzureBlobStorage1_connectionString": {
+            "value": ""
+        },
+        "ls_azuresql_password": {
+            "value": ""
+        },
+        "LS_ADLSGen2_Blob_connectionString": {
+            "value": ""
+        },
+        "LS_AzureSQL_DB_password": {
+            "value": ""
+        },
+        "ls_azuresql_properties_typeProperties_server": {
+            "value": "sql-azde-lab-ci-001.database.windows.net"
+        },
+        "ls_azuresql_properties_typeProperties_database": {
+            "value": "free-sql-db-azde-lab"
+        },
+        "ls_azuresql_properties_typeProperties_userName": {
+            "value": "azure_lab_user"
+        },
+        "LS_AzureSQL_DB_properties_typeProperties_server": {
+            "value": "sql-azde-lab-ci-001.database.windows.net"
+        },
+        "LS_AzureSQL_DB_properties_typeProperties_database": {
+            "value": "free-sql-db-azde-lab"
+        },
+        "LS_AzureSQL_DB_properties_typeProperties_userName": {
+            "value": "azure_lab_user"
+        }
+    }
+}
